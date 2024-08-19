@@ -1,0 +1,47 @@
+body.light-mode {
+    background-color: #ffffff;
+    color: #000000;
+    direction: rtl;
+    font-family: 'Amiri', serif;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+    direction: rtl;
+    font-family: 'Amiri', serif;
+}
+
+header {
+    background-color: #282c34;
+    padding: 1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav a {
+    color: #61dafb;
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #282c34;
+    color: #ffffff;
+}
+
+button#theme-toggle {
+    background: none;
+    border: none;
+    color: #61dafb;
+    cursor: pointer;
+}
+
+main {
+    padding: 2rem;
+}
