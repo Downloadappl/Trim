@@ -9,27 +9,6 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
     }
 });
 
-// جلب أسماء السور
-const surahListUrl = 'https://api.alquran.cloud/v1/surah';
-const surahListContainer = document.getElementById('surah-list');
-
-fetch(surahListUrl)
-    .then(response => response.json())
-    .then(data => {
-        const surahs = data.data;
-        surahListContainer.innerHTML = '<h2>فهرس السور</h2>';
-        surahs.forEach(surah => {
-            const surahItem = document.createElement('div');
-            surahItem.classList.add('surah-item');
-            surahItem.innerHTML = `
-                <h3>${surah.name}</h3>
-                <a href="surah.html?number=${surah.number}" class="view-ayahs"><i class="fas fa-book-open"></i> عرض الآيات</a>
-            `;
-            surahListContainer.appendChild(surahItem);
-        });
-    })
-    .catch(error => console.error('Error fetching Surahs:', error));
-
 // التعامل مع تسجيل الدخول
 document.getElementById('login-form')?.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -72,4 +51,12 @@ function addToFavorites(surahNumber, ayahNumber) {
     } else {
         alert('الآية موجودة بالفعل في المفضلة.');
     }
+}
+
+// إزالة من المفضلة
+function removeFromFavorites(surahNumber, ayahNumber) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites = favorites.filter(fav => !(fav.surahNumber === surahNumber && fav.ayahNumber === ayahNumber));
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    location.reload(); // إعادة تحميل الصفحة لتحديث العرض
 }
