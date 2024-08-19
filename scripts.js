@@ -1,3 +1,4 @@
+// تبديل الوضع الليلي والنهاري
 document.getElementById('theme-toggle').addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
     document.body.classList.toggle('light-mode');
@@ -9,11 +10,21 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
     }
 });
 
+// التعامل مع قائمة التنقل الجانبية
+document.getElementById('menu-toggle').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('open');
+});
+
+document.getElementById('close-btn').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.remove('open');
+});
+
 // التعامل مع تسجيل الدخول
 document.getElementById('login-form')?.addEventListener('submit', (event) => {
     event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
+
     // تحقق من بيانات تسجيل الدخول هنا
     if (username && password) {
         localStorage.setItem('loggedIn', 'true');
@@ -60,3 +71,13 @@ function removeFromFavorites(surahNumber, ayahNumber) {
     localStorage.setItem('favorites', JSON.stringify(favorites));
     location.reload(); // إعادة تحميل الصفحة لتحديث العرض
 }
+
+// التحقق من تسجيل الدخول وتوجيه المستخدم
+window.addEventListener('load', () => {
+    if (document.getElementById('login-form')) {
+        if (localStorage.getItem('loggedIn') === 'true') {
+            document.getElementById('login-btn').style.display = 'none';
+            window.location.href = 'index.html';
+        }
+    }
+});
