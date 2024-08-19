@@ -1,19 +1,39 @@
-// لتبديل الوضع بين الليلي والنهاري
 document.getElementById('theme-toggle').addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
     document.body.classList.toggle('light-mode');
+    const icon = document.getElementById('theme-toggle').querySelector('i');
+    if (document.body.classList.contains('dark-mode')) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+    } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+    }
 });
 
-// جلب آية باستخدام API
-const surahNumber = 1; // رقم السورة (يمكن تغييره)
-const ayahNumber = 1;  // رقم الآية (يمكن تغييره)
+// جلب أسماء السور
+const surahListUrl = 'https://api.alquran.cloud/v1/surah';
+const surahListContainer = document.getElementById('surah-list');
 
-const apiUrl = `https://api.alquran.cloud/v1/ayah/${surahNumber}:${ayahNumber}/ar.alafasy`;
-
-fetch(apiUrl)
+fetch(surahListUrl)
     .then(response => response.json())
     .then(data => {
-        const ayahText = data.data.text;
-        document.getElementById('ayah').textContent = ayahText;
+        const surahs = data.data;
+        surahListContainer.innerHTML = '<h2>فهرس السور</h2>';
+        surahs.forEach(surah => {
+            const surahItem = document.createElement('div');
+            surahItem.classList.add('surah-item');
+            surahItem.innerHTML = `
+                <h3>${surah.name}</h3>
+                <button onclick="showAyah(${surah.number})">عرض الآيات</button>
+            `;
+            surahListContainer.appendChild(surahItem);
+        });
     })
-    .catch(error => console.error('حدث خطأ أثناء جلب البيانات القرآنية:', error));
+    .catch(error => console.error('Error fetching Surahs:', error));
+
+function showAyah(surahNumber) {
+    const apiUrl = `https://api.alquran.cloud/v1/surah/${surahNumber}`;
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const surah = data.data;
+            const
