@@ -41,6 +41,7 @@
                     favoriteItem.classList.add('favorite-item');
                     favoriteItem.innerHTML = `
                         <p>${ayah.text} (سورة ${fav.surahNumber}, آية ${fav.ayahNumber})</p>
+                        <button class="remove-favorite-btn" onclick="removeFromFavorites(${fav.surahNumber}, ${fav.ayahNumber})"><i class="fas fa-times"></i></button>
                     `;
                     favoritesContent.appendChild(favoriteItem);
                 })
