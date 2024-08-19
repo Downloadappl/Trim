@@ -10,22 +10,58 @@
 <body class="dark-mode">
     <header>
         <nav>
-            <ul>
-                <li><a href="index.html">الرئيسية</a></li>
-                <li><a href="favorites.html">المفضلة</a></li>
-                <li><a href="login.html">تسجيل الدخول</a></li>
-            </ul>
+            <button id="menu-toggle"><i class="fas fa-bars"></i></button>
             <button id="theme-toggle"><i class="fas fa-sun"></i></button>
         </nav>
     </header>
+    <aside id="sidebar">
+        <button class="close-btn" id="close-btn"><i class="fas fa-times"></i></button>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="favorites.html"><i class="fas fa-star"></i> المفضلة</a></li>
+            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
+            <li><a href="register.html"><i class="fas fa-user-plus"></i> إنشاء حساب</a></li>
+        </ul>
+    </aside>
     <main class="main-container">
-        <div id="surah-list">
-            <h1>فهرس السور</h1>
-        </div>
+        <h1>عرض سور القرآن الكريم</h1>
+        <div id="surah-list"></div>
     </main>
     <footer class="footer">
         <p>&copy; 2024 موقع القرآن الكريم. جميع الحقوق محفوظة.</p>
     </footer>
     <script src="scripts.js"></script>
+    <script>
+        const surahList = document.getElementById('surah-list');
+        const apiUrl = 'https://api.alquran.cloud/v1/surah';
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const surahs = data.data;
+                surahs.forEach(surah => {
+                    const surahItem = document.createElement('div');
+                    surahItem.classList.add('surah-item');
+                    surahItem.innerHTML = `
+                        <h3>${surah.name}</h3>
+                        <button class="view-ayahs-btn" onclick="viewSurah(${surah.number})"><i class="fas fa-eye"></i> عرض الآيات</button>
+                    `;
+                    surahList.appendChild(surahItem);
+                });
+            })
+            .catch(error => console.error('Error fetching Surahs:', error));
+
+        function viewSurah(surahNumber) {
+            window.location.href = `surah.html?number=${surahNumber}`;
+        }
+
+        document.getElementById('menu-toggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+
+        document.getElementById('close-btn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+        });
+    </script>
 </body>
 </html>
