@@ -1,110 +1,68 @@
-/* ألوان وتحسينات جديدة للوضع الداكن والفاتح */
-body.light-mode {
-    background-color: #ffffff;
-    color: #333;
-}
-
-body.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
-}
-
-header, .footer {
+/* قائمة جانبية */
+#sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
     background-color: #333;
     color: #e0e0e0;
-}
-
-nav ul {
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-
-nav a {
-    color: #e0e0e0;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-}
-
-button#theme-toggle {
-    background: none;
-    border: none;
-    color: #e0e0e0;
-    cursor: pointer;
-    font-size: 1.5rem;
-}
-
-button#theme-toggle:hover {
-    color: #ff9800;
-}
-
-.main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-}
-
-h1, h2 {
-    color: #e0e0e0;
-}
-
-.form-container {
-    max-width: 400px;
-    width: 100%;
-    padding: 2rem;
-    border-radius: 8px;
-    background-color: #333;
+    transition: right 0.3s ease;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.form-container h1 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-.form-container form {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-container label {
-    margin-bottom: 0.5rem;
-    color: #e0e0e0;
-}
-
-.form-container input {
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #555;
-    border-radius: 4px;
-    background-color: #222;
-    color: #e0e0e0;
-}
-
-.form-container button {
-    padding: 0.75rem;
-    border: none;
-    border-radius: 4px;
-    background-color: #ff5722;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.form-container button:hover {
-    background-color: #e64a19;
-}
-
-.footer {
-    background-color: #333;
-    color: #e0e0e0;
-    text-align: center;
+    z-index: 1000;
     padding: 1rem;
 }
 
+#sidebar.open {
+    right: 0;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar li {
+    margin: 1rem 0;
+}
+
+#sidebar a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+#sidebar i {
+    margin-right: 0.5rem;
+}
+
+#sidebar .close-btn {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+#menu-toggle {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#menu-toggle:hover {
+    color: #ff9800;
+}
+
+/* تحسين عرض النصوص */
 .surah-item, .favorite-item {
     background-color: #222;
     padding: 1rem;
@@ -125,28 +83,23 @@ h1, h2 {
     margin-bottom: 1rem;
 }
 
-button.favorite-btn {
+button.favorite-btn, button.remove-favorite-btn {
     background: none;
     border: none;
-    color: #ff5722;
     cursor: pointer;
     font-size: 1.2rem;
+}
+
+button.favorite-btn {
+    color: #ff5722;
 }
 
 button.favorite-btn:hover {
     color: #e64a19;
 }
 
-button.favorite-btn.active {
-    color: #e64a19;
-}
-
 button.remove-favorite-btn {
-    background: none;
-    border: none;
     color: #f44336;
-    cursor: pointer;
-    font-size: 1.2rem;
 }
 
 button.remove-favorite-btn:hover {
