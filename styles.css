@@ -117,18 +117,11 @@ h1, h2 {
     margin: 0;
 }
 
-a.view-ayahs {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    background-color: #ff5722;
-    color: #fff;
-    text-decoration: none;
-    margin-top: 0.5rem;
-}
-
-a.view-ayahs:hover {
-    background-color: #e64a19;
+.ayah-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #333;
+    border-radius: 8px;
 }
 
 button.favorite-btn {
@@ -140,5 +133,9 @@ button.favorite-btn {
 }
 
 button.favorite-btn:hover {
+    color: #e64a19;
+}
+
+button.favorite-btn.active {
     color: #e64a19;
 }
