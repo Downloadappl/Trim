@@ -1,19 +1,17 @@
 body.light-mode {
     background-color: #ffffff;
-    color: #000000;
-    direction: rtl;
-    font-family: 'Amiri', serif;
+    color: #333;
+    font-family: 'Arial', sans-serif;
 }
 
 body.dark-mode {
     background-color: #121212;
-    color: #ffffff;
-    direction: rtl;
-    font-family: 'Amiri', serif;
+    color: #e0e0e0;
+    font-family: 'Arial', sans-serif;
 }
 
 header {
-    background-color: #282c34;
+    background-color: #333;
     padding: 1rem;
 }
 
@@ -22,39 +20,50 @@ nav ul {
     display: flex;
     justify-content: space-between;
     padding: 0;
+    margin: 0;
 }
 
 nav a {
-    color: #61dafb;
+    color: #e0e0e0;
     text-decoration: none;
+    padding: 0.5rem 1rem;
 }
 
 button#theme-toggle {
     background: none;
     border: none;
-    color: #61dafb;
+    color: #e0e0e0;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
-main {
+button#theme-toggle:hover {
+    color: #ff9800;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 2rem;
+}
+
+h1, h2 {
+    color: #e0e0e0;
 }
 
 .form-container {
     max-width: 400px;
-    margin: 0 auto;
+    width: 100%;
     padding: 2rem;
-    border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .form-container h1 {
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #333;
 }
 
 .form-container form {
@@ -64,32 +73,72 @@ main {
 
 .form-container label {
     margin-bottom: 0.5rem;
+    color: #e0e0e0;
 }
 
 .form-container input {
     padding: 0.75rem;
     margin-bottom: 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid #555;
     border-radius: 4px;
+    background-color: #222;
+    color: #e0e0e0;
 }
 
 .form-container button {
     padding: 0.75rem;
     border: none;
     border-radius: 4px;
-    background-color: #28a745;
-    color: #ffffff;
+    background-color: #ff5722;
+    color: #fff;
     cursor: pointer;
     font-size: 1rem;
 }
 
 .form-container button:hover {
-    background-color: #218838;
+    background-color: #e64a19;
 }
 
-footer {
+.footer {
+    background-color: #333;
+    color: #e0e0e0;
     text-align: center;
     padding: 1rem;
-    background-color: #282c34;
-    color: #ffffff;
+}
+
+.surah-item, .favorite-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #222;
+    border-radius: 8px;
+}
+
+.surah-item h3, .favorite-item p {
+    margin: 0;
+}
+
+a.view-ayahs {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: #ff5722;
+    color: #fff;
+    text-decoration: none;
+    margin-top: 0.5rem;
+}
+
+a.view-ayahs:hover {
+    background-color: #e64a19;
+}
+
+button.favorite-btn {
+    background: none;
+    border: none;
+    color: #ff5722;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+button.favorite-btn:hover {
+    color: #e64a19;
 }
