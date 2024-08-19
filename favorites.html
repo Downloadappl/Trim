@@ -39,7 +39,9 @@
                     const ayah = data.data;
                     const favoriteItem = document.createElement('div');
                     favoriteItem.classList.add('favorite-item');
-                    favoriteItem.innerHTML = `<p>${ayah.text} (سورة ${fav.surahNumber}, آية ${fav.ayahNumber})</p>`;
+                    favoriteItem.innerHTML = `
+                        <p>${ayah.text} (سورة ${fav.surahNumber}, آية ${fav.ayahNumber})</p>
+                    `;
                     favoritesContent.appendChild(favoriteItem);
                 })
                 .catch(error => console.error('Error fetching Favorite Ayahs:', error));
