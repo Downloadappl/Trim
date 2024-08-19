@@ -10,14 +10,19 @@
 <body class="dark-mode">
     <header>
         <nav>
-            <ul>
-                <li><a href="index.html">الرئيسية</a></li>
-                <li><a href="favorites.html">المفضلة</a></li>
-                <li><a href="login.html">تسجيل الدخول</a></li>
-            </ul>
+            <button id="menu-toggle"><i class="fas fa-bars"></i></button>
             <button id="theme-toggle"><i class="fas fa-sun"></i></button>
         </nav>
     </header>
+    <aside id="sidebar">
+        <button class="close-btn" id="close-btn"><i class="fas fa-times"></i></button>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="favorites.html"><i class="fas fa-star"></i> المفضلة</a></li>
+            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
+            <li><a href="register.html"><i class="fas fa-user-plus"></i> إنشاء حساب</a></li>
+        </ul>
+    </aside>
     <main class="main-container">
         <div id="ayah-content">
             <h1>عرض الآيات</h1>
