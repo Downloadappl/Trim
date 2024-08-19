@@ -41,8 +41,12 @@
                 const ayahs = surah.ayahs;
                 ayahContent.innerHTML = `<h2>${surah.name}</h2>`;
                 ayahs.forEach(ayah => {
-                    const ayahItem = document.createElement('p');
-                    ayahItem.innerHTML = `${ayah.text} <button class="favorite-btn" onclick="addToFavorites(${surahNumber}, ${ayah.number})"><i class="fas fa-heart"></i></button>`;
+                    const ayahItem = document.createElement('div');
+                    ayahItem.classList.add('ayah-item');
+                    ayahItem.innerHTML = `
+                        <p>${ayah.text}</p>
+                        <button class="favorite-btn" onclick="addToFavorites(${surahNumber}, ${ayah.number})"><i class="fas fa-heart"></i></button>
+                    `;
                     ayahContent.appendChild(ayahItem);
                 });
             })
