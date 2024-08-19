@@ -34,8 +34,9 @@ fetch(surahListUrl)
 document.getElementById('login-form')?.addEventListener('submit', (event) => {
     event.preventDefault();
     const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
     // تحقق من بيانات تسجيل الدخول هنا
-    if (username) {
+    if (username && password) {
         localStorage.setItem('loggedIn', 'true');
         document.getElementById('login-btn').style.display = 'none';
         window.location.href = 'index.html';
