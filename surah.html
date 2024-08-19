@@ -45,7 +45,8 @@
                     ayahItem.classList.add('ayah-item');
                     ayahItem.innerHTML = `
                         <p>${ayah.text}</p>
-                        <button class="favorite-btn" onclick="addToFavorites(${surahNumber}, ${ayah.number})"><i class="fas fa-heart"></i></button>
+                        <button class="favorite-btn" onclick="addToFavorites(${surah.number}, ${ayah.number})"><i class="fas fa-heart"></i></button>
+                        <button class="remove-favorite-btn" onclick="removeFromFavorites(${surah.number}, ${ayah.number})"><i class="fas fa-times"></i></button>
                     `;
                     ayahContent.appendChild(ayahItem);
                 });
