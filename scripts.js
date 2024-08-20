@@ -1,80 +1,111 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const themeToggleBtn = document.getElementById('toggle-theme');
-    const loginForm = document.getElementById('login-form');
-    
-    const applyTheme = (theme) => {
-        document.body.className = theme;
-        localStorage.setItem('theme', theme);
-    };
+/* Theme Styles */
+body.light-theme {
+    background-color: #f4f4f4;
+    color: #333;
+}
 
-    themeToggleBtn.addEventListener('click', () => {
-        const currentTheme = document.body.className;
-        const newTheme = currentTheme === 'light-theme' ? 'dark-theme' : 'light-theme';
-        applyTheme(newTheme);
-    });
+body.dark-theme {
+    background-color: #333;
+    color: #f4f4f4;
+}
 
-    if (localStorage.getItem('theme')) {
-        applyTheme(localStorage.getItem('theme'));
-    }
+/* Login Styles */
+.login-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            localStorage.setItem('loggedIn', true);
-            window.location.href = 'index.html';
-        });
-    }
+.login-container h1 {
+    text-align: center;
+}
 
-    if (localStorage.getItem('loggedIn')) {
-        if (window.location.pathname.includes('login.html')) {
-            window.location.href = 'index.html';
-        }
-    }
+.login-container form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
-    const loadSurahs = () => {
-        fetch('https://api.alquran.cloud/v1/surah')
-            .then(response => response.json())
-            .then(data => {
-                const surahList = document.getElementById('surah-list');
-                surahList.innerHTML = '';
-                data.data.forEach(surah => {
-                    const li = document.createElement('li');
-                    li.innerText = `${surah.number}. ${surah.englishName} - ${surah.name}`;
-                    const favBtn = document.createElement('button');
-                    favBtn.innerText = 'إضافة للمفضلة';
-                    favBtn.onclick = () => addToFavorites(surah);
-                    li.appendChild(favBtn);
-                    surahList.appendChild(li);
-                });
-            });
-    };
+.login-container form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
-    const addToFavorites = (surah) => {
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        favorites.push(surah);
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-    };
+.login-container form button:hover {
+    background-color: #0056b3;
+}
 
-    const loadFavorites = () => {
-        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        const favList = document.getElementById('favorites-list');
-        favList.innerHTML = '';
-        favorites.forEach(surah => {
-            const li = document.createElement('li');
-            li.innerText = `${surah.number}. ${surah.englishName} - ${surah.name}`;
-            favList.appendChild(li);
-        });
-    };
+/* Side Menu Styles */
+.side-menu {
+    width: 250px;
+    background-color: #fff;
+    padding: 20px;
+    text-align: right;
+}
 
-    if (document.getElementById('surah-list')) {
-        loadSurahs();
-    }
+.side-menu button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: right;
+}
 
-    if (document.getElementById('favorites-list')) {
-        loadFavorites();
-    }
-});
+/* Content Styles */
+.content {
+    margin-left: 270px;
+    padding: 20px;
+}
 
-function goBack() {
-    window.history.back();
+/* Surah List Styles */
+.content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.content ul li {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content ul li button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.content ul li button:hover {
+    background-color: #0056b3;
+}
+
+/* Favorites Styles */
+#favorites-list li {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
