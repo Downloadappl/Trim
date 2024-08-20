@@ -5,40 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تسجيل الدخول</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM9nb5rmRcSU6HfEFl5hKuVb6hQ1nISYoX2ltRz" crossorigin="anonymous">
 </head>
-<body class="dark-mode">
-    <header>
-        <nav>
-            <button id="menu-toggle"><i class="fas fa-bars"></i></button>
-            <button id="theme-toggle"><i class="fas fa-sun"></i></button>
-        </nav>
-    </header>
-    <aside id="sidebar">
-        <button class="close-btn" id="close-btn"><i class="fas fa-times"></i></button>
-        <ul>
-            <li><a href="index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
-            <li><a href="favorites.html"><i class="fas fa-star"></i> المفضلة</a></li>
-            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</a></li>
-            <li><a href="register.html"><i class="fas fa-user-plus"></i> إنشاء حساب</a></li>
-        </ul>
-    </aside>
-    <main class="main-container">
-        <div class="form-container">
-            <h1><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</h1>
-            <form id="login-form">
-                <label for="username">اسم المستخدم</label>
-                <input type="text" id="username" name="username" required>
-                <label for="password">كلمة المرور</label>
-                <input type="password" id="password" name="password" required>
-                <button type="submit" id="login-btn">دخول</button>
-            </form>
-            <p>ليس لديك حساب؟ <a href="register.html">إنشاء حساب</a></p>
-        </div>
-    </main>
-    <footer class="footer">
-        <p>&copy; 2024 موقع القرآن الكريم. جميع الحقوق محفوظة.</p>
-    </footer>
-    <script src="scripts.js"></script>
+<body class="light-theme">
+    <div class="login-container">
+        <h2>تسجيل الدخول</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="اسم المستخدم" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="كلمة المرور" required>
+            </div>
+            <button type="submit" class="btn-primary">دخول</button>
+        </form>
+        <p id="error-message"></p>
+    </div>
+    <script src="login.js"></script>
 </body>
 </html>
