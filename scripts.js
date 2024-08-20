@@ -1,108 +1,80 @@
-// تبديل الوضع بين النهاري والليلي
-document.getElementById('theme-toggle').addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    document.body.classList.toggle('light-mode');
-});
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggleBtn = document.getElementById('toggle-theme');
+    const loginForm = document.getElementById('login-form');
+    
+    const applyTheme = (theme) => {
+        document.body.className = theme;
+        localStorage.setItem('theme', theme);
+    };
 
-// فتح وإغلاق الشريط الجانبي
-document.getElementById('menu-toggle').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.toggle('open');
-});
+    themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = document.body.className;
+        const newTheme = currentTheme === 'light-theme' ? 'dark-theme' : 'light-theme';
+        applyTheme(newTheme);
+    });
 
-document.getElementById('close-btn').addEventListener('click', () => {
-    document.getElementById('sidebar').classList.remove('open');
-});
+    if (localStorage.getItem('theme')) {
+        applyTheme(localStorage.getItem('theme'));
+    }
 
-// جلب قائمة السور
-const surahList = document.getElementById('surah-list');
-fetch('https://api.alquran.cloud/v1/surah')
-    .then(response => response.json())
-    .then(data => {
-        const surahs = data.data;
-        surahList.innerHTML = ''; // مسح أي محتوى سابق
-        surahs.forEach(surah => {
-            const surahItem = document.createElement('div');
-            surahItem.classList.add('surah-item');
-            surahItem.innerHTML = `<a href="surah.html?number=${surah.number}">${surah.name}</a>`;
-            surahList.appendChild(surahItem);
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            localStorage.setItem('loggedIn', true);
+            window.location.href = 'index.html';
         });
-    })
-    .catch(error => console.error('Error fetching Surahs:', error));
+    }
 
-// جلب الآيات عند زيارة صفحة السورة
-const urlParams = new URLSearchParams(window.location.search);
-const surahNumber = urlParams.get('number');
-if (surahNumber) {
-    const ayahContent = document.getElementById('ayah-content');
-    const apiUrl = `https://api.alquran.cloud/v1/surah/${surahNumber}`;
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            const surah = data.data;
-            const ayahs = surah.ayahs;
-            ayahContent.innerHTML = `<h2>${surah.name}</h2>`;
-            ayahs.forEach(ayah => {
-                const ayahItem = document.createElement('div');
-                ayahItem.classList.add('ayah-item');
-                ayahItem.innerHTML = `
-                    <p>${ayah.text}</p>
-                    <button class="favorite-btn" onclick="addToFavorites(${surahNumber}, ${ayah.number})">
-                        <i class="fas fa-star"></i> إضافة إلى المفضلة
-                    </button>
-                    <button class="remove-favorite-btn" onclick="removeFromFavorites(${surahNumber}, ${ayah.number})">
-                        <i class="fas fa-trash"></i> إزالة من المفضلة
-                    </button>
-                `;
-                ayahContent.appendChild(ayahItem);
+    if (localStorage.getItem('loggedIn')) {
+        if (window.location.pathname.includes('login.html')) {
+            window.location.href = 'index.html';
+        }
+    }
+
+    const loadSurahs = () => {
+        fetch('https://api.alquran.cloud/v1/surah')
+            .then(response => response.json())
+            .then(data => {
+                const surahList = document.getElementById('surah-list');
+                surahList.innerHTML = '';
+                data.data.forEach(surah => {
+                    const li = document.createElement('li');
+                    li.innerText = `${surah.number}. ${surah.englishName} - ${surah.name}`;
+                    const favBtn = document.createElement('button');
+                    favBtn.innerText = 'إضافة للمفضلة';
+                    favBtn.onclick = () => addToFavorites(surah);
+                    li.appendChild(favBtn);
+                    surahList.appendChild(li);
+                });
             });
-        })
-        .catch(error => console.error('Error fetching Ayahs:', error));
-}
+    };
 
-// إضافة الآية إلى المفضلة
-function addToFavorites(surahNumber, ayahNumber) {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    favorites.push({ surahNumber, ayahNumber });
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-    alert('تمت إضافة الآية إلى المفضلة');
-}
+    const addToFavorites = (surah) => {
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        favorites.push(surah);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    };
 
-// إزالة الآية من المفضلة
-function removeFromFavorites(surahNumber, ayahNumber) {
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    favorites = favorites.filter(fav => !(fav.surahNumber === surahNumber && fav.ayahNumber === ayahNumber));
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-    alert('تمت إزالة الآية من المفضلة');
-}
+    const loadFavorites = () => {
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        const favList = document.getElementById('favorites-list');
+        favList.innerHTML = '';
+        favorites.forEach(surah => {
+            const li = document.createElement('li');
+            li.innerText = `${surah.number}. ${surah.englishName} - ${surah.name}`;
+            favList.appendChild(li);
+        });
+    };
 
-// تسجيل الدخول
-document.getElementById('login-form')?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const username = document.getElementById('login-username').value;
-    const password = document.getElementById('login-password').value;
+    if (document.getElementById('surah-list')) {
+        loadSurahs();
+    }
 
-    // تحقق من صحة بيانات تسجيل الدخول
-    if (username && password) {
-        // هنا يجب إضافة كود التحقق الفعلي من المستخدم
-        alert('تم تسجيل الدخول بنجاح');
-        window.location.href = 'index.html'; // الانتقال إلى الصفحة الرئيسية بعد تسجيل الدخول
-    } else {
-        alert('يرجى ملء جميع الحقول');
+    if (document.getElementById('favorites-list')) {
+        loadFavorites();
     }
 });
 
-// إنشاء حساب
-document.getElementById('register-form')?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const username = document.getElementById('register-username').value;
-    const password = document.getElementById('register-password').value;
-
-    // تحقق من صحة بيانات التسجيل
-    if (username && password) {
-        // هنا يجب إضافة كود التسجيل الفعلي
-        alert('تم إنشاء الحساب بنجاح');
-        window.location.href = 'login.html'; // الانتقال إلى صفحة تسجيل الدخول بعد التسجيل
-    } else {
-        alert('يرجى ملء جميع الحقول');
-    }
-});
+function goBack() {
+    window.history.back();
+}
